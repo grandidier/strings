@@ -49,7 +49,7 @@ String::String(const char* str) {
 }
 
 String::~String(){
-  delete data;
+  delete[] data;
 }
 
 
@@ -112,6 +112,77 @@ void String::reserve(int n){
     }
   }
 }
+
+//
+
+int String::max_size() const {
+  //returns the maximum number of characters
+  return 2147483647; // This is the maximum value for a 32-bit signed int
+}
+
+void String::resize(int newSize, char fillChar) {
+  if (newSize < 0) {
+    //size can't be under 0, break
+    std::cout << "ERROR: A negative size is not allowed" << std::endl;
+    return;
+  }
+  if (newSize < size_) {
+    //we need to truncate the string, if newsize to small
+    size_ = newSize;
+    data[size_] = '\0';
+
+  } else if (newSize > capacity) {
+    //if more memory needs to be allocated (capacity to small)
+    int newCapacity = newSize + 1;
+    char* newData = new char[newCapacity];
+
+    //existing data
+    for (int i = 0; i < size_; ++i) {
+      newData[i] = data[i];
+    }
+
+    //we add the specified fillChar in the size added
+    for (int i = size_; i < newSize; ++i) {
+      newData[i] = fillChar;
+    }
+
+    newData[newSize] = '\0';
+
+    capacity = newCapacity;
+    delete[] data;
+    data = newData;
+    size_ = newSize;
+
+  }else{
+    //last case : no need to change the capacity
+    for (int i = size_; i < newSize; ++i) {
+        data[i] = fillChar;
+    }
+    data[newSize] = '\0';
+    size_ = newSize;
+  }
+}
+
+String& String::operator=(const String& other) {
+  if (this != &other) {
+    //just to avoid any unecessary action
+    clear();
+
+    //adjust all string members
+    size_ = other.size_;
+    capacity = other.capacity;
+    data = new char[capacity];
+
+    //copy the data
+    for (int i = 0; i <= size_; ++i) {
+        data[i] = other.data[i];
+    }
+  }
+  return *this;
+}
+
+
+
 
 // Operators
 /*
