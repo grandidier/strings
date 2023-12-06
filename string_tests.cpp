@@ -8,6 +8,9 @@ void testOperator_plus();
 void testCapacity();
 void testEmpty();
 void testReserve();
+void testMaxString();
+void testResize();
+void testOperatorEqual();
 
 int main() {
     testCopyConstructor();
@@ -15,6 +18,9 @@ int main() {
     testCapacity();
     testEmpty();
     testReserve();
+    testMaxString();
+    testResize();
+    testOperatorEqual();
 
     std::exit(EXIT_SUCCESS);
 }
@@ -74,6 +80,47 @@ void testOperator_plus(){
   std::cout << str2.size() << std::endl;
   std::cout << str2.data << std::endl;
 }
+
+void testResize() {
+  String str("TestResize");
+  std::cout << str.data << std::endl;
+
+  int newSize = 20;
+  char fillChar = 'Y';
+  str.resize(newSize, fillChar);
+  std::cout << str.data << std::endl;
+
+  newSize = -2;
+  fillChar = 'Y';
+  str.resize(newSize, fillChar);
+  std::cout << str.data << std::endl;
+
+  newSize = 10;
+  fillChar = 'Y';
+  str.resize(newSize, fillChar);
+  std::cout << str.data << std::endl;
+
+  newSize = 120;
+  fillChar = 'o'; //if not a character but a 'string' given, take the last character of the 'string'
+  str.resize(newSize, fillChar);
+  std::cout << str.data << std::endl;
+}
+
+void testMaxString(){
+  String str("testMaxString");
+  std::cout << str.data << std::endl;
+  std::cout << str.capacity << std::endl;
+  std::cout << str.max_size() << std::endl;
+}
+
+void testOperatorEqual(){
+  String str("testOpEqual");
+  std::cout << str.data << std::endl;
+  String other("wasRaplaced");
+  str = other;
+  std::cout << str.data << std::endl;
+}
+
 
 // Operators
 /*

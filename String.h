@@ -1,3 +1,6 @@
+#ifndef STRING_H
+#define STRING_H
+
 class String{
 
   public:
@@ -13,16 +16,31 @@ class String{
     //Accessors
     int getCapacity();
     int size();
+    int max_size() const;
 
     // Member functions
     void clear();
-    String& operator=(char c);
     String operator+ (const char* rhs);
     bool isEmpty();
     void reserve(int n);
+    void resize(int newSize, char fillChar);
+
+    String& operator=(char c);
+    String& operator=(const String& other);
 
   protected:
     int size_;
     int maxSize = 100;
 
 };
+
+
+/*
+Student B:
+    constructor from a c-string
+    length()
+    operator=(const string&)
+    operator+(const string&, char)
+*/
+
+#endif
