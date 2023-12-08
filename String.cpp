@@ -4,20 +4,10 @@
 // Constructors
 
 String::String(){
-  // Initialize with a default string, e.g., "Hello World"
-  const char* defaultString = "Hello World";
   size_ = 0;
-  capacity = 100; // Initial capacity, can be adjusted based on requirements
+  capacity = 10; // Initial capacity, can be adjusted based on requirements
   data = new char[capacity];
-
-  // Copy the default string manually
-  while (defaultString[size_] != '\0' && size_ < capacity - 1) {
-    data[size_] = defaultString[size_];
-    size_++;
-  }
-
-  // Add null terminator
-  data[size_] = '\0';
+  data[size_] = '\0'; // Add null terminator
 }
 
 // Copy constructor
@@ -35,11 +25,14 @@ String::String(const String& other) {
 // Constructor with a C-style string parameter
 String::String(const char* str) {
     size_ = 0;
-    capacity = 100; // Initial capacity, can be adjusted based on requirements
+    capacity = 10; // Initial capacity, can be adjusted based on requirements
 
     data = new char[capacity];
 
     while (str[size_] != '\0' && size_ < capacity - 1) {
+      if(size_== capacity - 2){
+        capacity += 10;
+      }
       data[size_] = str[size_];
       size_++;
     }
@@ -87,7 +80,7 @@ int String::length(){
 }
 
 void String::reserve(int n){
-  if (size_ + n > maxSize){
+  if (size_ + n > maxSize_){
     std::cout << "ERROR : size is too big" << std::endl;
   }else {
     size_ += n;
@@ -99,7 +92,7 @@ void String::reserve(int n){
 
 int String::max_size() const {
   //returns the maximum number of characters
-  return maxSize; // This is the maximum value for a 32-bit signed int
+  return maxSize_; // This is the maximum value for a 32-bit signed int
 }
 
 void String::resize(int newSize, char fillChar) {

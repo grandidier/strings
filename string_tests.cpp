@@ -3,6 +3,7 @@
 #include <cstdlib>
 
 void testDefaultConstructor();
+void testCstyleConstructor();
 void testCopyConstructor();
 void testOperator_plus();
 void testCapacity();
@@ -18,6 +19,8 @@ void testOpPlusB();
 void testLength();
 
 int main() {
+  testDefaultConstructor();
+  testCstyleConstructor();
     testCopyConstructor();
     testOperator_plus();
     testCapacity();
@@ -37,23 +40,22 @@ int main() {
 //Constructors
 
 void testDefaultConstructor() {
-    String str;
-    // Add assertions to check if the default constructor initializes correctly
-    // For example, assert that str.size is the length of "Hello World"
-    std::cout << str.size() << std::endl;
-    std::cout << str.data << std::endl;
+  String str;
+  std::cout << "Default constructor" <<std::endl;
+  std::cout << "  Size : " << str.size() << "; and empty data : " << str.data << std::endl;
+}
+
+void testCstyleConstructor() {
+  String str("Test du C-style constructor");
+  std::cout << str.data << std::endl;
+  std::cout << "  Size : " << str.size() << " Capacity : " << str.getCapacity() << std::endl;
 }
 
 void testCopyConstructor() {
-    String str("Bonjour je suis Clément");
-    // Add assertions to check if the default constructor initializes correctly
-    // For example, assert that str.size is the length of "Hello World"
-    std::cout << str.size() << std::endl;
-    std::cout << str.data << std::endl;
-
-    String str2(str);
-    std::cout << str2.size() << std::endl;
-    std::cout << str2.data << std::endl;
+  String str("Test du copy constructor");
+  String str2(str);
+  std::cout << str.data << std::endl;
+  std::cout << "  Size : " << str2.size() << " Capacity : " << str2.getCapacity() << std::endl;
 }
 
 
