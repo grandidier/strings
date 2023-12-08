@@ -37,7 +37,7 @@ class String{
 
   protected:
     int size_;
-    int maxSize = 100;
+    int maxSize_ = 100;
 
 };
 
