@@ -99,7 +99,7 @@ void String::reserve(int n){
 
 int String::max_size() const {
   //returns the maximum number of characters
-  return maxSize_; // This is the maximum value for a 32-bit signed int
+  return maxSize; // This is the maximum value for a 32-bit signed int
 }
 
 void String::resize(int newSize, char fillChar) {
