@@ -12,6 +12,8 @@ void testMaxString();
 void testResize();
 void testOperatorEqual();
 void testc_str();
+void testOpPlusB();
+void testLength();
 
 int main() {
     testCopyConstructor();
@@ -23,7 +25,9 @@ int main() {
     testResize();
     testOperatorEqual();
     testc_str();
-
+    testOpPlusB();
+    testLength();
+    
     std::exit(EXIT_SUCCESS);
 }
 
@@ -128,6 +132,19 @@ void testc_str(){
   std::cout << str.c_str() << std::endl;
 }
 
+void testOpPlusB(){
+  String str("testOpPlusB");
+  std::cout << str.data << std::endl;
+  String str2 = str+'t';
+  std::cout << str2.data << std::endl;
+}
+
+void testLength(){
+  String str("testLength");
+  std::cout << str.data << std::endl;
+  std::cout << str.length() << std::endl;
+
+}
 
 // Operators
 /*

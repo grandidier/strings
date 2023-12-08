@@ -18,6 +18,7 @@ class String{
     int size();
     int max_size() const;
     const char* c_str() const;
+    int length();
 
     // Member functions
     void clear();
@@ -28,6 +29,7 @@ class String{
 
     String& operator=(char c);
     String& operator=(const String& other);
+    String& operator+(char c);
 
   protected:
     int size_;

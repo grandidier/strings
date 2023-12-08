@@ -185,7 +185,26 @@ String& String::operator=(const String& other) {
   return *this;
 }
 
+String& String::operator+(char c){
+  //check if capacity big enough
+  if (size_ + 1 >= capacity) {
+      //if not add some
+      reserve(1);
+  }
 
+  //add the character to the end
+  data[size_] = c;
+  size_++;
+  data[size_] = '\0';  // Null-terminate the string
+
+  return *this;
+}
+
+int String::length(){
+  //all characters are equal to one byte
+  //size  equal to length
+  return size_;
+}
 
 
 // Operators
