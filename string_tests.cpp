@@ -82,14 +82,6 @@ void testReserve(){
   std::cout << "Size is now " << str.size() << " and capacity is " << str.capacity << std::endl;
 }
 
-void testOperator_plus(){
-  String str("Bonjour");
-  std::cout << str.data << std::endl;
-  String str2 = str+"Clement";
-  std::cout << str2.size() << std::endl;
-  std::cout << str2.data << std::endl;
-}
-
 void testResize() {
   String str("TestResize");
   std::cout << str.data << std::endl;
@@ -122,25 +114,11 @@ void testMaxString(){
   std::cout << str.max_size() << std::endl;
 }
 
-void testOperatorEqual(){
-  String str("testOpEqual");
-  std::cout << str.data << std::endl;
-  String other("wasRaplaced");
-  str = other;
-  std::cout << str.data << std::endl;
-}
-
 void testc_str(){
   String str("testc_str");
   std::cout << str.c_str() << std::endl;
 }
 
-void testOpPlusB(){
-  String str("testOpPlusB");
-  std::cout << str.data << std::endl;
-  String str2 = str+'t';
-  std::cout << str2.data << std::endl;
-}
 
 void testLength(){
   String str("testLength");
@@ -150,7 +128,29 @@ void testLength(){
 }
 
 // Operators
-/*
+void testOperator_plus(){
+  String str("Bonjour");
+  std::cout << str.data << std::endl;
+  String str2 = str+"Clement";
+  std::cout << str2.size() << std::endl;
+  std::cout << str2.data << std::endl;
+}
+
+void testOperatorEqual(){
+  String str("testOpEqual");
+  std::cout << str.data << std::endl;
+  String other("wasRaplaced");
+  str = other;
+  std::cout << str.data << std::endl;
+}
+
+void testOpPlusB(){
+  String str("testOpPlusB");
+  std::cout << str.data << std::endl;
+  String str2 = str+'t';
+  std::cout << str2.data << std::endl;
+}
+
 void testOperator_eq(){
   String str;
   const char* p = "Bonjour";

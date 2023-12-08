@@ -76,6 +76,77 @@ void String::clear(){
   data[0]='\0';
 }
 
+bool String::isEmpty(){
+  return size_ == 0;
+}
+
+int String::length(){
+  //all characters are equal to one byte
+  //size  equal to length
+  return size_;
+}
+
+void String::reserve(int n){
+  if (size_ + n > maxSize){
+    std::cout << "ERROR : size is too big" << std::endl;
+  }else {
+    size_ += n;
+    if (capacity < size_){
+      capacity = size_;
+    }
+  }
+}
+
+int String::max_size() const {
+  //returns the maximum number of characters
+  return maxSize_; // This is the maximum value for a 32-bit signed int
+}
+
+void String::resize(int newSize, char fillChar) {
+  if (newSize < 0) {
+    //size can't be under 0, break
+    std::cout << "ERROR: A negative size is not allowed" << std::endl;
+    return;
+  }
+  if (newSize < size_) {
+    //we need to truncate the string, if newsize to small
+    size_ = newSize;
+    data[size_] = '\0';
+
+  } else if (newSize > capacity) {
+    //if more memory needs to be allocated (capacity to small)
+    int newCapacity = newSize + 1;
+    char* newData = new char[newCapacity];
+
+    //existing data
+    for (int i = 0; i < size_; ++i) {
+      newData[i] = data[i];
+    }
+
+    //we add the specified fillChar in the size added
+    for (int i = size_; i < newSize; ++i) {
+      newData[i] = fillChar;
+    }
+
+    newData[newSize] = '\0';
+
+    capacity = newCapacity;
+    delete[] data;
+    data = newData;
+    size_ = newSize;
+
+  }else{
+    //last case : no need to change the capacity
+    for (int i = size_; i < newSize; ++i) {
+        data[i] = fillChar;
+    }
+    data[newSize] = '\0';
+    size_ = newSize;
+  }
+}
+
+//Operators
+
 String& String::operator=(char c) {
   clear(); // Clear the existing contents
   size_ = 1;
@@ -173,73 +244,4 @@ String& String::operator+(char c){
   data[size_] = '\0';  // Null-terminate the string
 
   return *this;
-}
-
-bool String::isEmpty(){
-  return size_ == 0;
-}
-
-int String::length(){
-  //all characters are equal to one byte
-  //size  equal to length
-  return size_;
-}
-
-void String::reserve(int n){
-  if (size_ + n > maxSize){
-    std::cout << "ERROR : size is too big" << std::endl;
-  }else {
-    size_ += n;
-    if (capacity < size_){
-      capacity = size_;
-    }
-  }
-}
-
-int String::max_size() const {
-  //returns the maximum number of characters
-  return maxSize_; // This is the maximum value for a 32-bit signed int
-}
-
-void String::resize(int newSize, char fillChar) {
-  if (newSize < 0) {
-    //size can't be under 0, break
-    std::cout << "ERROR: A negative size is not allowed" << std::endl;
-    return;
-  }
-  if (newSize < size_) {
-    //we need to truncate the string, if newsize to small
-    size_ = newSize;
-    data[size_] = '\0';
-
-  } else if (newSize > capacity) {
-    //if more memory needs to be allocated (capacity to small)
-    int newCapacity = newSize + 1;
-    char* newData = new char[newCapacity];
-
-    //existing data
-    for (int i = 0; i < size_; ++i) {
-      newData[i] = data[i];
-    }
-
-    //we add the specified fillChar in the size added
-    for (int i = size_; i < newSize; ++i) {
-      newData[i] = fillChar;
-    }
-
-    newData[newSize] = '\0';
-
-    capacity = newCapacity;
-    delete[] data;
-    data = newData;
-    size_ = newSize;
-
-  }else{
-    //last case : no need to change the capacity
-    for (int i = size_; i < newSize; ++i) {
-        data[i] = fillChar;
-    }
-    data[newSize] = '\0';
-    size_ = newSize;
-  }
 }

@@ -22,16 +22,18 @@ class String{
 
     // Member functions
     void clear();
-    String operator+ (const char* rhs);
-    String& operator=(const char* c);
-    String operator+(const String& str);
     bool isEmpty();
     void reserve(int n);
     void resize(int newSize, char fillChar);
 
+    //Operators
+    String operator+ (const char* rhs);
+    String& operator+(char c);
+    String operator+(const String& str);
+    String& operator=(const char* c);
     String& operator=(char c);
     String& operator=(const String& other);
-    String& operator+(char c);
+
 
   protected:
     int size_;
