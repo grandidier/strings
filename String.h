@@ -17,6 +17,7 @@ class String{
     int getCapacity();
     int size();
     int max_size() const;
+    const char* c_str() const;
 
     // Member functions
     void clear();

@@ -11,6 +11,7 @@ void testReserve();
 void testMaxString();
 void testResize();
 void testOperatorEqual();
+void testc_str();
 
 int main() {
     testCopyConstructor();
@@ -21,6 +22,7 @@ int main() {
     testMaxString();
     testResize();
     testOperatorEqual();
+    testc_str();
 
     std::exit(EXIT_SUCCESS);
 }
@@ -119,6 +121,11 @@ void testOperatorEqual(){
   String other("wasRaplaced");
   str = other;
   std::cout << str.data << std::endl;
+}
+
+void testc_str(){
+  String str("testc_str");
+  std::cout << str.c_str() << std::endl;
 }
 
 

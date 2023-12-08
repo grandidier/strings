@@ -63,6 +63,10 @@ int String::size(){
   return size_;
 }
 
+const char* String::c_str() const {
+    return data; // The data array is already null-terminated
+}
+
 // Member functions
 
 void String::clear(){
