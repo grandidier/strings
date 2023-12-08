@@ -18,6 +18,8 @@ class String{
     void clear();
     String& operator=(char c);
     String operator+ (const char* rhs);
+    String& operator=(const char* c);
+    String operator+(const String& str);
     bool isEmpty();
     void reserve(int n);
 

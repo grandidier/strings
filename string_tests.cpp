@@ -8,6 +8,8 @@ void testOperator_plus();
 void testCapacity();
 void testEmpty();
 void testReserve();
+void testOperator_eq();
+void testOperator_plus2();
 
 int main() {
     testCopyConstructor();
@@ -15,7 +17,8 @@ int main() {
     testCapacity();
     testEmpty();
     testReserve();
-
+    testOperator_eq();
+    testOperator_plus2();
     std::exit(EXIT_SUCCESS);
 }
 
@@ -75,15 +78,16 @@ void testOperator_plus(){
   std::cout << str2.data << std::endl;
 }
 
-// Operators
-/*
 void testOperator_eq(){
-  String str("Bonjour");
-  String str2;
-  const char* p = str.data;
-
-  str2.operator_eq(p);
-
+  String str;
+  const char* p = "Bonjour";
+  str = p;
   std::cout  << str.data << std::endl;
 }
-*/
+
+void testOperator_plus2(){
+  String str1("Pourquoi");
+  String str2(" il pleut");
+  String result = str1 + str2;
+  std::cout  << result.data << std::endl;
+}

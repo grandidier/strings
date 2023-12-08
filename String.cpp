@@ -49,7 +49,7 @@ String::String(const char* str) {
 }
 
 String::~String(){
-  delete data;
+  delete[] data;
 }
 
 
@@ -98,6 +98,44 @@ String String::operator+ (const char* rhs){
 
 }
 
+String& String::operator=(const char* c){
+  if (this != reinterpret_cast<const String*>(c)) {
+    clear();
+
+    int newsize = 0;
+    while (c[newsize] != '\0') {
+      ++newsize;
+    }
+
+    data = new char[newsize + 1]; //for null terminator
+
+    for(int i=0; i <= newsize; ++i){
+      data[i] = c[i];
+    }
+    data[newsize] = '\0';
+
+  }
+  return *this;
+}
+
+String String::operator+ (const String& str){
+  String str2(str);
+
+  String result(data);
+  int newsize = size_;
+  int str2_size = 0;
+
+  while(str.data[str2_size] != '\0' && newsize < capacity - 1){
+    result.data[newsize] = str2.data[str2_size];
+    newsize++;
+    str2_size++;
+  }
+
+  result.data[newsize]='\0';
+  result.size_=newsize;
+  return result;
+}
+
 bool String::isEmpty(){
   return size_ == 0;
 }
@@ -112,10 +150,3 @@ void String::reserve(int n){
     }
   }
 }
-
-// Operators
-/*
-void String::operator_eq(const char* p){
-  this->data = p;
-}
-*/
