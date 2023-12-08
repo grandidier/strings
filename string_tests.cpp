@@ -18,6 +18,10 @@ void testc_str();
 void testOpPlusB();
 void testLength();
 
+
+using std::cout;
+using std::endl;
+
 int main() {
   testDefaultConstructor();
   testCstyleConstructor();
@@ -41,21 +45,21 @@ int main() {
 
 void testDefaultConstructor() {
   String str;
-  std::cout << "Default constructor" <<std::endl;
-  std::cout << "  Size : " << str.size() << "; and empty data : " << str.data << std::endl;
+  cout << "Default constructor" << endl;
+  cout << "  Size : " << str.size() << "; and empty data : " << str.data << endl;
 }
 
 void testCstyleConstructor() {
   String str("Test du C-style constructor");
-  std::cout << str.data << std::endl;
-  std::cout << "  Size : " << str.size() << " Capacity : " << str.getCapacity() << std::endl;
+  cout << str.data << endl;
+  cout << "  Size : " << str.size() << " Capacity : " << str.getCapacity() << endl;
 }
 
 void testCopyConstructor() {
   String str("Test du copy constructor");
   String str2(str);
-  std::cout << str.data << std::endl;
-  std::cout << "  Size : " << str2.size() << " Capacity : " << str2.getCapacity() << std::endl;
+  cout << str.data << endl;
+  cout << "  Size : " << str2.size() << " Capacity : " << str2.getCapacity() << endl;
 }
 
 
@@ -63,7 +67,7 @@ void testCopyConstructor() {
 
 void testCapacity(){
   String str;
-  std::cout << "Capacity is " << str.getCapacity() << std::endl;
+  cout << "Capacity is " << str.getCapacity() << endl;
 }
 
 //Member functions
@@ -71,9 +75,9 @@ void testCapacity(){
 void testEmpty(){
   String str;
   if (str.isEmpty()){
-    std::cout << "The string is empty" << std::endl;
+    cout << "The string is empty" << endl;
   } else {
-    std::cout << "The string is not empty" << std::endl;
+    cout << "The string is not empty" << endl;
 
   }
 }
@@ -81,88 +85,88 @@ void testEmpty(){
 void testReserve(){
   String str;
   str.reserve(10);
-  std::cout << "Size is now " << str.size() << " and capacity is " << str.capacity << std::endl;
+  cout << "Size is now " << str.size() << " and capacity is " << str.capacity << endl;
 }
 
 void testResize() {
   String str("TestResize");
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
 
   int newSize = 20;
   char fillChar = 'Y';
   str.resize(newSize, fillChar);
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
 
   newSize = -2;
   fillChar = 'Y';
   str.resize(newSize, fillChar);
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
 
   newSize = 10;
   fillChar = 'Y';
   str.resize(newSize, fillChar);
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
 
   newSize = 120;
   fillChar = 'o'; //if not a character but a 'string' given, take the last character of the 'string'
   str.resize(newSize, fillChar);
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
 }
 
 void testMaxString(){
   String str("testMaxString");
-  std::cout << str.data << std::endl;
-  std::cout << str.capacity << std::endl;
-  std::cout << str.max_size() << std::endl;
+  cout << str.data << endl;
+  cout << str.capacity << endl;
+  cout << str.max_size() << endl;
 }
 
 void testc_str(){
   String str("testc_str");
-  std::cout << str.c_str() << std::endl;
+  cout << str.c_str() << endl;
 }
 
 
 void testLength(){
   String str("testLength");
-  std::cout << str.data << std::endl;
-  std::cout << str.length() << std::endl;
+  cout << str.data << endl;
+  cout << str.length() << endl;
 
 }
 
 // Operators
 void testOperator_plus(){
   String str("Bonjour");
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
   String str2 = str+"Clement";
-  std::cout << str2.size() << std::endl;
-  std::cout << str2.data << std::endl;
+  cout << str2.size() << endl;
+  cout << str2.data << endl;
 }
 
 void testOperatorEqual(){
   String str("testOpEqual");
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
   String other("wasRaplaced");
   str = other;
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
 }
 
 void testOpPlusB(){
   String str("testOpPlusB");
-  std::cout << str.data << std::endl;
+  cout << str.data << endl;
   String str2 = str+'t';
-  std::cout << str2.data << std::endl;
+  cout << str2.data << endl;
 }
 
 void testOperator_eq(){
   String str;
   const char* p = "Bonjour";
   str = p;
-  std::cout  << str.data << std::endl;
+  cout  << str.data << endl;
 }
 
 void testOperator_plus2(){
   String str1("Pourquoi");
   String str2(" il pleut");
   String result = str1 + str2;
-  std::cout  << result.data << std::endl;
+  cout  << result.data << endl;
 }
