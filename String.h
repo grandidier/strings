@@ -4,9 +4,6 @@
 class String{
 
   public:
-    char* data;    // pointer to the character array
-    int capacity;// capacity of the allocated memory
-
     // Constructor
     String();
     String(const String& str);
@@ -14,7 +11,7 @@ class String{
     ~String();
 
     //Accessors
-    int getCapacity();
+    int capacity();
     int size();
     int max_size() const;
     const char* c_str() const;
@@ -22,13 +19,13 @@ class String{
 
     // Member functions
     void clear();
-    bool isEmpty();
+    bool empty();
     void reserve(int n);
     void resize(int newSize, char fillChar);
 
     //Operators
     String operator+ (const char* rhs);
-    String& operator+(char c);
+    String operator+(char c);
     String operator+(const String& str);
     String& operator=(const char* c);
     String& operator=(char c);
@@ -36,18 +33,11 @@ class String{
 
 
   protected:
+    char* data;    // pointer to the character array
     int size_;
     int maxSize_ = 100;
+    int capacity_;// capacity of the allocated memory
 
 };
-
-
-/*
-Student B:
-    constructor from a c-string
-    length()
-    operator=(const string&)
-    operator+(const string&, char)
-*/
 
 #endif

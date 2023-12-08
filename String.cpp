@@ -5,16 +5,16 @@
 
 String::String(){
   size_ = 0;
-  capacity = 10; // Initial capacity, can be adjusted based on requirements
-  data = new char[capacity];
+  capacity_ = 10; // Initial capacity, can be adjusted based on requirements
+  data = new char[capacity_];
   data[size_] = '\0'; // Add null terminator
 }
 
 // Copy constructor
 String::String(const String& other) {
   size_ = other.size_;
-  capacity = other.capacity;
-  data = new char[capacity];
+  capacity_ = other.capacity_;
+  data = new char[capacity_];
 
   // Copy the data from the other string
   for (int i = 0; i <= size_; ++i) {
@@ -25,13 +25,13 @@ String::String(const String& other) {
 // Constructor with a C-style string parameter
 String::String(const char* str) {
     size_ = 0;
-    capacity = 10; // Initial capacity, can be adjusted based on requirements
+    capacity_ = 10; // Initial capacity, can be adjusted based on requirements
 
-    data = new char[capacity];
+    data = new char[capacity_];
 
-    while (str[size_] != '\0' && size_ < capacity - 1) {
-      if(size_== capacity - 2){
-        capacity += 10;
+    while (str[size_] != '\0' && size_ < capacity_ - 1) {
+      if(size_== capacity_ - 2){
+        capacity_ += 10;
       }
       data[size_] = str[size_];
       size_++;
@@ -48,12 +48,23 @@ String::~String(){
 
 // Accessors
 
-int String::getCapacity(){
-  return capacity;
+int String::capacity(){
+  return capacity_;
 }
 
 int String::size(){
   return size_;
+}
+
+int String::length(){
+  //all characters are equal to one byte
+  //size  equal to length
+  return size_;
+}
+
+int String::max_size() const {
+  //returns the maximum number of characters
+  return maxSize_; // This is the maximum value for a 32-bit signed int
 }
 
 const char* String::c_str() const {
@@ -65,34 +76,22 @@ const char* String::c_str() const {
 void String::clear(){
   delete[] data;
   size_ = 0;
-  data = new char[capacity];
+  data = new char[capacity_];
   data[0]='\0';
 }
 
-bool String::isEmpty(){
+bool String::empty(){
   return size_ == 0;
 }
 
-int String::length(){
-  //all characters are equal to one byte
-  //size  equal to length
-  return size_;
-}
-
 void String::reserve(int n){
-  if (size_ + n > maxSize_){
-    std::cout << "ERROR : size is too big" << std::endl;
+  if (n > maxSize_){
+    std::cout << "ERROR : n is bigger than maxSize_" << std::endl;
   }else {
-    size_ += n;
-    if (capacity < size_){
-      capacity = size_;
+    if (capacity_ < n){
+      capacity_ =  n;
     }
   }
-}
-
-int String::max_size() const {
-  //returns the maximum number of characters
-  return maxSize_; // This is the maximum value for a 32-bit signed int
 }
 
 void String::resize(int newSize, char fillChar) {
@@ -101,12 +100,16 @@ void String::resize(int newSize, char fillChar) {
     std::cout << "ERROR: A negative size is not allowed" << std::endl;
     return;
   }
-  if (newSize < size_) {
+  if (newSize > maxSize_) {
+    //size can't be bigger than maxSize_, break
+    std::cout << "ERROR: n greater than maxSize_" << std::endl;
+    return;
+  }
+  if (newSize <= size_) {
     //we need to truncate the string, if newsize to small
     size_ = newSize;
     data[size_] = '\0';
-
-  } else if (newSize > capacity) {
+  } else if (newSize > capacity_) {
     //if more memory needs to be allocated (capacity to small)
     int newCapacity = newSize + 1;
     char* newData = new char[newCapacity];
@@ -123,7 +126,7 @@ void String::resize(int newSize, char fillChar) {
 
     newData[newSize] = '\0';
 
-    capacity = newCapacity;
+    capacity_ = newCapacity;
     delete[] data;
     data = newData;
     size_ = newSize;
@@ -158,8 +161,7 @@ String& String::operator=(const char* c){
     while (c[newsize] != '\0') {
       ++newsize;
     }
-
-    data = new char[newsize + 1]; //for null terminator
+    size_ = newsize+1;
 
     for(int i=0; i <= newsize; ++i){
       data[i] = c[i];
@@ -177,8 +179,8 @@ String& String::operator=(const String& other) {
 
     //adjust all string members
     size_ = other.size_;
-    capacity = other.capacity;
-    data = new char[capacity];
+    capacity_ = other.capacity_;
+    data = new char[capacity_];
 
     //copy the data
     for (int i = 0; i <= size_; ++i) {
@@ -193,8 +195,11 @@ String String::operator+ (const char* rhs){
   int newsize = size_;
   int rhs_size = 0;
 
-
-  while (rhs[rhs_size] != '\0' && newsize < capacity - 1) {
+  while (rhs[rhs_size] != '\0' && newsize < capacity_ - 1) {
+    //increase capacity if needed
+    if(newsize == capacity_ - 2){
+      capacity_ += 10;
+    }
     result.data[newsize] = rhs[rhs_size];
     newsize++;
     rhs_size++;
@@ -203,17 +208,20 @@ String String::operator+ (const char* rhs){
   result.data[newsize]='\0';
   result.size_=newsize;
   return result;
-
 }
 
-String String::operator+ (const String& str){
+String String::operator+(const String& str){
   String str2(str);
 
   String result(data);
   int newsize = size_;
   int str2_size = 0;
 
-  while(str.data[str2_size] != '\0' && newsize < capacity - 1){
+  while(str.data[str2_size] != '\0' && newsize < capacity_ - 1){
+    //increase capacity if needed
+    if(newsize == capacity_ - 2){
+      capacity_ += 10;
+    }
     result.data[newsize] = str2.data[str2_size];
     newsize++;
     str2_size++;
@@ -224,17 +232,19 @@ String String::operator+ (const String& str){
   return result;
 }
 
-String& String::operator+(char c){
+String String::operator+(char c){
+  String result(data);
+
   //check if capacity big enough
-  if (size_ + 1 >= capacity) {
+  if (size_ + 1 >= capacity_) {
       //if not add some
-      reserve(1);
+      result.capacity_++;
   }
 
   //add the character to the end
-  data[size_] = c;
-  size_++;
-  data[size_] = '\0';  // Null-terminate the string
 
-  return *this;
+  result.data[size_] = c;
+  result.size_++;
+  result.data[result.size_] = '\0';  // Null-terminate the string
+  return result;
 }
