@@ -27,12 +27,18 @@ String::String(const char* str) {
     size_ = 0;
     capacity_ = 10; // Initial capacity, can be adjusted based on requirements
 
-    data = new char[capacity_];
-
-    while (str[size_] != '\0' && size_ < capacity_ - 1) {
+    // find the correct capacity_
+    while(str[size_] != '\0' && size_ < capacity_ - 1){
       if(size_== capacity_ - 2){
         capacity_ += 10;
       }
+      size_++;
+    }
+
+    size_ = 0;
+    data = new char[capacity_];
+
+    while (str[size_] != '\0' && size_ < capacity_ - 1) {
       data[size_] = str[size_];
       size_++;
     }
@@ -98,36 +104,33 @@ void String::resize(int newSize, char fillChar) {
   if (newSize < 0) {
     //size can't be under 0, break
     std::cout << "ERROR: A negative size is not allowed" << std::endl;
-    return;
   }
-  if (newSize > maxSize_) {
+  else if (newSize > maxSize_) {
     //size can't be bigger than maxSize_, break
     std::cout << "ERROR: n greater than maxSize_" << std::endl;
-    return;
   }
-  if (newSize <= size_) {
+  else if (newSize <= size_) {
     //we need to truncate the string, if newsize to small
     size_ = newSize;
     data[size_] = '\0';
   } else if (newSize > capacity_) {
     //if more memory needs to be allocated (capacity to small)
-    int newCapacity = newSize + 1;
+    int newCapacity = newSize + 2;
     char* newData = new char[newCapacity];
 
     //existing data
-    for (int i = 0; i < size_; ++i) {
+    for (int i = 0; i < size_; i++) {
       newData[i] = data[i];
     }
 
     //we add the specified fillChar in the size added
-    for (int i = size_; i < newSize; ++i) {
+    for (int i = size_; i < newSize; i++) {
       newData[i] = fillChar;
     }
 
     newData[newSize] = '\0';
-
-    capacity_ = newCapacity;
     delete[] data;
+    capacity_ = newCapacity;
     data = newData;
     size_ = newSize;
 
