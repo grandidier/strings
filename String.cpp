@@ -180,7 +180,6 @@ String& String::operator=(const String& other) {
     //adjust all string members
     size_ = other.size_;
     capacity_ = other.capacity_;
-    data = new char[capacity_];
 
     //copy the data
     for (int i = 0; i <= size_; ++i) {
